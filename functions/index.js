@@ -32,9 +32,22 @@ admin.initializeApp({
 
 require('firebase/firestore');
 
+exports.daily_cleanup = functions.pubsub.topic('daily-tick').onPublish((event) => {
+  var db = admin.firestore();
+  var dateBar = new Date();
+  dateBar.setDate(dateBar - 2);
+
+  var oldNewsQuery = db.collection('Articles').where('date', '<', dateBar );
+  oldNewsQuery.get().then(function(querySnapshot){
+    querySnapshot.forEach(function(doc) {
+      doc.ref.delete();
+    });
+  });
+});
+
 exports.hourly_job =
   functions.pubsub.topic('hourly-tick').onPublish((event) => {
-  
+
 
 const NewsAPI = require('newsapi');
 const newsapi = new NewsAPI('4e76960e84ff466ebb41a90ebc86a625');
@@ -50,7 +63,7 @@ var db = admin.firestore();
   var yesterDate = '' + yesterday.getFullYear() + '-' + yesterday.getMonth() + 1 + '-' + yesterday.getDate();
   newsapi.v2.everything({
   	q: 'trump OR economy OR politics OR government OR war OR missile OR health care OR immigration OR racism OR sexism OR united states OR white house OR president',
-  	domains: 'dailycaller.com,huffingtionpost.com,yahoo.com/news/politics/,bloomberg.com/politics,slate.com,theblaze.com',
+  	domains: 'slate.com,theblaze.com,thehill.com',
   	from: yesterDate,
   	to: toDate,
   	languege: 'en',
@@ -79,8 +92,7 @@ exports.addScore = functions.firestore
 			lScore: 0,
 			rScore: 0,
 			bScore: 0,
+      date: new Date(),
 			score: 2 }, {merge: true});
 	}
 });
-
-    		
