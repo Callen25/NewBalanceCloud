@@ -21,7 +21,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
 admin.initializeApp({
-    apiKey: "AIzaSyDf3zss9lTnOZLlfkPrTSHzL7oHTZplR94",
+    apiKey: "#################",
     credential: admin.credential.applicationDefault(),
     authDomain: "newsbalance-4543f.firebaseapp.com",
     databaseURL: "https://newsbalance-4543f.firebaseio.com",
