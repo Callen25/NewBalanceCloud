@@ -50,7 +50,7 @@ exports.hourly_job =
 
 
 const NewsAPI = require('newsapi');
-const newsapi = new NewsAPI('4e76960e84ff466ebb41a90ebc86a625');
+const newsapi = new NewsAPI('######################');
 
 
 
