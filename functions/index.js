@@ -59,8 +59,8 @@ var db = admin.firestore();
   var today = new Date();
   var yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
-  var toDate = '' + today.getFullYear() + '-' + today.getMonth() + 1 + '-' + today.getDate();
-  var yesterDate = '' + yesterday.getFullYear() + '-' + yesterday.getMonth() + 1 + '-' + yesterday.getDate();
+  var toDate = '' + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  var yesterDate = '' + yesterday.getFullYear() + '-' + (yesterday.getMonth() + 1) + '-' + yesterday.getDate();
   newsapi.v2.everything({
   	q: 'trump OR economy OR politics OR government OR war OR missile OR health care OR immigration OR racism OR sexism OR united states OR white house OR president',
   	domains: 'slate.com,theblaze.com,thehill.com',
